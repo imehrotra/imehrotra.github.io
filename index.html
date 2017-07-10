@@ -1,77 +1,38 @@
-
-
-<!DOCTYPE html>
-
-<!--[if lt IE 7]>
-<html class="lt-ie9 lt-ie8 lt-ie7">
-<![endif]-->
-<!--[if IE 7]>
-<html class="lt-ie9 lt-ie8">
-<![endif]-->
-<!--[if IE 8]>
-<html class="lt-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!-->
+<!doctype html>
 <html>
-<!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=no" />
-        
-        <title>HoroAR - Nexus Studios</title>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - first tracking</title>
+  <script src="../build/tracking-min.js"></script>
+</head>
+<body>
+  <video id="myVideo" width="400" height="300" preload autoplay loop muted></video>
+  <script>
 
-        <meta name="description" content="Augmented reality web experiment showcasing current local time around the world">
-                
-        <meta property="og:title" content="HoroAR - Nexus Studios">
-        <meta property="og:description" content="Augmented reality web experiment showcasing current local time around the world.">
-        <meta property="og:type"  content="website" /> 
-        <meta property="og:image" content="https://nexusinteractivearts.com/webar/horoAR/media/img/fb.jpg?version=1.1">
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta property="og:site_name" content="HoroAR - Nexus Studios">
-        <meta property="og:url" content="https://nexusinteractivearts.com/webar/horoAR/">
-        <meta itemprop="name" content="HoroAR - Nexus Studios">
-        <meta itemprop="description" content="Augmented reality web experiment showcasing current local time around the world.">
-        <meta itemprop="image" content="https://nexusinteractivearts.com/webar/horoAR/media/img/fb.jpg?version=1.1">
-
-        <link rel="shortcut icon" href="media/favicon.png" type="image/x-icon">
-        <link rel="icon" href="media/favicon.png" type="image/x-icon">
-
-        
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@nexuslondon">
-        <meta name="twitter:creator" content="@nexuslondon">
-        <meta name="twitter:title" content="HoroAR - Nexus Studios">
-        <meta name="twitter:description" content="Augmented reality web experiment showcasing current local time around the world.">
-        <meta name="twitter:image" content="https://nexusinteractivearts.com/webar/horoAR/media/img/fb.jpg?version=1.1">
-
-        <link rel="stylesheet" href="css/main.css?version=1.4">
+tracking.ColorTracker.registerColor('white', function(r, g, b) {
+  if (r > 250 && g > 250 && b > 250) {
+    return true;
+  }
+  return false;
+});
 
 
-    </head>
+  var colors = new tracking.ColorTracker(['white', 'magenta', 'cyan', 'yellow']);
 
-    <body style='background-color: #fbfbfb;'>
+  colors.on('track', function(event) {
+    if (event.data.length === 0) {
+      // No colors were detected in this frame.
+    } else {
+      event.data.forEach(function(rect) {
+        console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
+      });
+    }
+  });
 
-        <div class="loader"></div>
-
-        <div class='overlay' style='background-color: #fbfbfb;'></div>
-        <div class='wrapper'></div>
-        <div class='home'></div>
-        <div class='clock'></div>
-        <div class='instruction'></div>
-        <div class='safezone'></div>
-        
-
-        <script src="js/bundle.js?version=1.0"></script>     
-       
-    </body>
-    
+  tracking.track('#myVideo', colors);
+  </script>
+</body>
 </html>
-
-
-
-
 
 
 
