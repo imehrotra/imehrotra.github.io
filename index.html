@@ -1,88 +1,33 @@
-<!-- <!doctype html>
+
+
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>tracking.js - first tracking</title>
-  <script src="../build/tracking-min.js"></script>
+  <script src="tracking/build/tracking-min.js"></script>
 </head>
 <body>
-  <video id="myVideo" width="400" height="300" preload autoplay loop muted></video>
-  <script>
+<video id="myVideo" width="400" height="300" preload autoplay loop muted></video>
+<script>
+var colors = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
 
-tracking.ColorTracker.registerColor('white', function(r, g, b) {
-  if (r > 250 && g > 250 && b > 250) {
-    return true;
+colors.on('track', function(event) {
+  if (event.data.length === 0) {
+    // No colors were detected in this frame.
+  } else {
+    event.data.forEach(function(rect) {
+      console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
+    });
   }
-  return false;
 });
 
+window.onload = function() {
+  // note here that 'camera' is set to true, I believe this tells tracking.js to use
+  // the webcam.
+  tracking.track('#myVideo', colors, {camera: true});  
+}
 
-  var colors = new tracking.ColorTracker(['white', 'magenta', 'cyan', 'yellow']);
-
-  colors.on('track', function(event) {
-    if (event.data.length === 0) {
-      // No colors were detected in this frame.
-    } else {
-      event.data.forEach(function(rect) {
-        console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
-      });
-    }
-  });
-
-  tracking.track('#myVideo', colors);
-  </script>
-</body>
-</html>
- -->
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-
-<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
-<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
-<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
-<body style='margin : 0px; overflow: hidden;'>
-	<a-scene embedded arjs='sourceType: webcam;'>
-		<a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
-		<a-marker-camera preset='hiro'></a-marker-camera>
-	</a-scene>
-</body>
-
-
-<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
-<!-- <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
-<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
-<body style='margin : 0px; overflow: hidden;'>
-	<a-scene embedded arjs='sourceType: webcam;'>
-
-		<a-box position='0 0.5 0' material='opacity: 0.7;'>
-			<a-animation attribute="scale"
-				dur="1000"
-				from="1 1 1"
-				to="2 2 2"
-				direction='alternate-reverse'
-				easing="ease-in-out-circ"
-				repeat="indefinite"></a-animation>
-		</a-box>
-		<a-marker-camera type='pattern' patternUrl="/5gic.patt"></a-marker-camera>
-	</a-scene> -->
-
-<!-- 	<a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene> -->
+</script>
 </body>
 </html>
