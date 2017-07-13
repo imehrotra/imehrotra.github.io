@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>tracking.js - draw something</title>
-  <link rel="stylesheet" href="assets/demo.css">
+  <link rel="stylesheet" href="tracking/examples/assets/demo.css">
 
   <script src="tracking/build/tracking.js"></script>
-  <script src="tracking/assets/splines.min.js"></script>
-  <script src="tracking/assets/stats.min.js"></script>
+  <script src="tracking/examples/assets/splines.min.js"></script>
+  <script src="tracking/examples/assets/stats.min.js"></script>
 
-<!--   <style>
+  <style>
     #canvas,
     #video {
       height: 300px;
@@ -18,7 +18,7 @@
       padding-top: 66px;
     }
     .draw-frame {
-      background: url(tracking/assets/draw_frame.png);
+      background: url(tracking/examples/assets/draw_frame.png);
       width: 400px;
       height: 414px;
       border: 1px solid #ccc;
@@ -34,7 +34,7 @@
       filter: FlipH;
       transform: scale(-1, 1);
     }
-  </style> -->
+  </style>
 </head>
 <body>
 
@@ -42,16 +42,16 @@
     <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － use magenta color to draw and cyan to erase</p>
   </div>
 
+
   <div class="demo-frame">
     <div class="demo-container">
       <div id="rectangle"></div>
-      <video id="video" width="800" height="530" preload autoplay loop muted controls>
+      <video id="video" width="400" height="300" preload autoplay muted controls>
         <source src="ball.mp4" type="video/mp4">
       </video>
-      <canvas id="canvas" width="800" height="500"></canvas>
+      <canvas id="canvas" width="400" height="300"></canvas>
     </div>
   </div>
-
 
   <script>
     window.onload = function() {
@@ -67,7 +67,7 @@
       var drawSegments = [[]];
       var segment = 0;
       var tracker = new tracking.ColorTracker(['white', 'cyan']);
-      tracking.track('#video', tracker);
+      tracking.track('#video', tracker, { camera: true });
       tracker.on('track', function(event) {
         if (event.data.length === 0 && drawSegments[segment].length > 0) {
           segment++;
@@ -78,9 +78,6 @@
         event.data.forEach(function(rect) {
           if (rect.color === 'white') {
             draw(rect);
-          }
-          else if (rect.color === 'cyan') {
-            erase(rect);
           }
         });
       });
