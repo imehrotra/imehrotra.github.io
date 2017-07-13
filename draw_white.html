@@ -9,7 +9,7 @@
   <script src="tracking/assets/splines.min.js"></script>
   <script src="tracking/assets/stats.min.js"></script>
 
-  <style>
+<!--   <style>
     #canvas,
     #video {
       height: 300px;
@@ -34,7 +34,7 @@
       filter: FlipH;
       transform: scale(-1, 1);
     }
-  </style>
+  </style> -->
 </head>
 <body>
 
@@ -58,10 +58,16 @@
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
+      tracking.ColorTracker.registerColor('white', function(r, g, b) {
+        if(r>240 && g>240 && b>240) {
+          return true;
+        }
+        return false;
+      });
       var drawSegments = [[]];
       var segment = 0;
-      var tracker = new tracking.ColorTracker(['magenta', 'cyan']);
-      tracking.track('#video', tracker, { camera: true });
+      var tracker = new tracking.ColorTracker(['white', 'cyan']);
+      tracking.track('#video', tracker);
       tracker.on('track', function(event) {
         if (event.data.length === 0 && drawSegments[segment].length > 0) {
           segment++;
@@ -70,7 +76,7 @@
           }
         }
         event.data.forEach(function(rect) {
-          if (rect.color === 'magenta') {
+          if (rect.color === 'white') {
             draw(rect);
           }
           else if (rect.color === 'cyan') {
