@@ -17,7 +17,7 @@
       width: 400px;
       padding-top: 66px;
     }
-    .draw-frame {
+/*    .draw-frame {
       background: url(tracking/examples/assets/draw_frame.png);
       width: 400px;
       height: 414px;
@@ -33,7 +33,7 @@
       -webkit-transform: scale(-1, 1);
       filter: FlipH;
       transform: scale(-1, 1);
-    }
+    }*/
   </style>
 </head>
 <body>
@@ -42,12 +42,14 @@
     <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － use magenta color to draw and cyan to erase</p>
   </div>
 
+
   <div class="demo-frame">
     <div class="demo-container">
-      <div class="draw-frame">
-        <video id="video" width="400" height="300" preload autoplay loop muted></video>
-        <canvas id="canvas" width="400" height="300"></canvas>
-      </div>
+      <div id="rectangle"></div>
+      <video id="video" width="400" height="300" preload autoplay muted controls>
+        <source src="ball.mp4" type="video/mp4">
+      </video>
+      <canvas id="canvas" width="400" height="300"></canvas>
     </div>
   </div>
 
@@ -102,7 +104,6 @@
 
 </body>
 </html>
-
 
 
 <!-- 
