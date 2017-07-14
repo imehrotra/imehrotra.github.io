@@ -1,6 +1,52 @@
 <!doctype html>
 <html>
 <head>
+<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
+  <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+  <script src="ar/aframe/build/aframe-ar.js"></script>
+  <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+</head>
+<body style='margin : 0px; overflow: hidden;'>
+
+ 
+  <a-scene embedded arjs='sourceType: webcam;'>
+
+    <a-assets>
+      <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+    </a-assets>
+
+    <a-sphere radius="0.05" position='-1 0.8 0' color="blue">
+      <a-animation attribute="position"
+                   dur="5000"
+                   from="-1 0.8 0"
+                   to="1 0.8 0"
+                   direction='normal'
+                   repeat="indefinite">
+      </a-animation>
+    </a-sphere>
+
+    <a-collada-model src="pole2.dae" scale="0.4 0.35 0.4" position="-1 0 0"></a-collada-model>
+    <a-collada-model src="pole2.dae" scale="0.4 0.35 0.4" position="1 0 0"></a-collada-model>
+   
+    <a-entity text-geometry="value: 5G;" material="color: green;" position="-0.5 0 0 "></a-entity>
+    
+    <a-marker-camera preset='5gic'></a-marker-camera>
+
+  </a-scene>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!doctype html>
+<html>
+<head>
   <meta charset="utf-8">
   <title>tracking.js - draw something</title>
   <link rel="stylesheet" href="tracking/examples/assets/demo.css">
@@ -103,7 +149,7 @@
   </script>
 
 </body>
-</html>
+</html> -->
 
 
 <!-- 
