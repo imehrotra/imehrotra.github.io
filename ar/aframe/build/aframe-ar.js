@@ -1210,7 +1210,7 @@ THREEx.ArToolkitProfile.prototype.reset = function () {
 	}
 	this.defaultMarkerParameters = {
 		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
+		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/5gic.patt'
 	}
 	return this
 };
