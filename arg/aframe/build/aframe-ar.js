@@ -2742,7 +2742,7 @@ AFRAME.registerComponent('arjsmarker', {
 			this.data.patternUrl = THREEx.ArToolkitContext.baseURL+'examples/marker-training/examples/pattern-files/pattern-kanji.patt'
 		}else if( this.data.preset === 'myCustomMarker' ){
 			this.data.type = 'pattern'
-			this.data.patternUrl = THREEx.ArToolkitContext.host + 'pattern-marker.patt'
+			this.data.patternUrl = THREEx.ArToolkitContext.hostURL + 'pattern-marker.patt'
 		}else if( this.data.preset === 'area' ){
 			this.data.type = 'area'
 			// fall through
