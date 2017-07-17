@@ -862,7 +862,7 @@ Object.assign( THREEx.ArToolkitContext.prototype, THREE.EventDispatcher.prototyp
 // THREEx.ArToolkitContext.baseURL = '../'
 // default to github page
 THREEx.ArToolkitContext.baseURL = 'https://jeromeetienne.github.io/AR.js/three.js/'
-THREEx.ArToolkitContext.hostURL = './'
+THREEx.ArToolkitContext.hostURL = 'https://raw.githubusercontent.com/imehrotra/imehrotra.github.io/master/'
 THREEx.ArToolkitContext.REVISION = '1.0.1-dev'
 
 
