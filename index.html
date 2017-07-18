@@ -17,6 +17,28 @@
       <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
     </a-assets> -->
 
+    <a-sphere radius="0.5" position='-1 0 0' src="https://static1.squarespace.com/static/554a6b1be4b0ac583fdd5f86/5647b198e4b0ff99f22253bd/5647b5bfe4b025f4531a8f67/1449181219854/3-logos_intel.png?format=500w">
+      <a-animation attribute="rotation"
+                   dur="5000"
+                   direction='normal'
+                   repeat="indefinite">
+      </a-animation>
+    </a-sphere>
+
+  
+    <a-entity text-geometry="value: Thank you to our partners!;" material="color: white;" position="-0.5 1 0 "></a-entity>
+
+    <a-marker-camera preset='myCustomMarker'></a-marker-camera>
+
+  </a-scene>
+
+
+  <a-scene embedded arjs='sourceType: webcam;'>
+<!-- 
+    <a-assets>
+      <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+    </a-assets> -->
+
     <a-sphere radius="0.05" position='-1 0.8 0' color="blue">
       <a-animation attribute="position"
                    dur="5000"
@@ -32,10 +54,43 @@
    
     <a-entity text-geometry="value: 5G;" material="color: green;" position="-0.5 0 0 "></a-entity>
 
-<!-- <a-marker-camera type='pattern' patternUrl='https://raw.github.com/imehrotra/imehrotra.github.io/master/pattern-marker.patt'></a-marker-camera>
- -->    <a-marker-camera preset='myCustomMarker'></a-marker-camera>
+    <a-marker-camera preset='hiro'></a-marker-camera>
 
   </a-scene>
+
+
+  <a-scene embedded arjs='sourceType: webcam;'>
+<!-- 
+    <a-assets>
+      <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+    </a-assets> -->
+
+    <a-sphere radius="0.05" position='-1 0.8 0' color="blue">
+      <a-animation attribute="position"
+                   dur="5000"
+                   from="-1 0.8 0"
+                   to="1 0.8 0"
+                   direction='normal'
+                   repeat="indefinite">
+      </a-animation>
+    </a-sphere>
+
+    <a-collada-model src="pole2.dae" scale="0.4 0.35 0.4" position="-1 0 0"></a-collada-model>
+    <a-collada-model src="pole2.dae" scale="0.4 0.35 0.4" position="1 0 0"></a-collada-model>
+   
+    <a-entity text-geometry="value: 5G;" material="color: green;" position="-0.5 0 0 "></a-entity>
+
+    <a-marker-camera preset='kanji'></a-marker-camera>
+
+  </a-scene>
+
+
+
+
+
+
+
+
 </body>
 </html>
 
