@@ -63,7 +63,7 @@
    */
   tracking.initUserMedia_ = function(element, opt_options) {
     window.navigator.getUserMedia({
-      video: { facingMode: "environment" }, //true,
+      video: { facingMode: "environment" }, //true, //ISHA flipped camera to rear
       audio: !!(opt_options && opt_options.audio)
     }, function(stream) {
         try {
