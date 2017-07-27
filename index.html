@@ -1,4 +1,114 @@
+<!-- Draw Color (white) tracking on webcam, updated splines.min.js to change stroke color to blue -->
+
 <!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - draw something</title>
+  <link rel="stylesheet" href="tracking/examples/assets/demo.css">
+
+  <script src="tracking/build/tracking.js"></script>
+  <script src="tracking/examples/assets/splines.min.js"></script>
+  <script src="tracking/examples/assets/stats.min.js"></script>
+
+  <style>
+    #canvas,
+    #video {
+      height: 300px;
+      position: absolute;
+      width: 400px;
+      padding-top: 66px;
+    }
+    .draw-frame {
+      background: url(tracking/examples/assets/draw_frame.png);
+      width: 400px;
+      height: 414px;
+      border: 1px solid #ccc;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      margin: -207px 0 0 -200px;
+    }
+    canvas, video {
+      -moz-transform: scale(-1, 1);
+      -o-transform: scale(-1, 1);
+      -webkit-transform: scale(-1, 1);
+      filter: FlipH;
+      transform: scale(-1, 1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-title">
+    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － use magenta color to draw and cyan to erase</p>
+  </div>
+
+  <div class="demo-frame">
+    <div class="demo-container">
+      <div class="draw-frame">
+        <video id="video" width="400" height="300" preload autoplay loop muted></video>
+        <canvas id="canvas" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      tracking.ColorTracker.registerColor('white', function(r, g, b) {
+        if(r>240 && g>240 && b>240) {
+          return true;
+        }
+        return false;
+      });
+      var drawSegments = [[]];
+      var segment = 0;
+      var tracker = new tracking.ColorTracker(['white', 'cyan']);
+      tracking.track('#video', tracker, { camera: true });
+      tracker.on('track', function(event) {
+        if (event.data.length === 0 && drawSegments[segment].length > 0) {
+          segment++;
+          if (!drawSegments[segment]) {
+            drawSegments[segment] = [];
+          }
+        }
+        event.data.forEach(function(rect) {
+          if (rect.color === 'white') {
+            draw(rect);
+          }
+        });
+      });
+      function draw(rect) {
+        drawSegments[segment].push(rect.x + rect.width / 2, rect.y + rect.height / 2);
+      }
+      function erase(rect) {
+        context.clearRect(rect.x, rect.y, rect.width, rect.height);
+      }
+      function isInsideRect(x, y, rect) {
+        return rect.x <= x && x <= rect.x + rect.width &&
+            rect.y <= y && y <= rect.y + rect.height;
+      }
+      (function loop() {
+          for (var i = 0, len = drawSegments.length; i < len; i++) {
+              drawSpline(context, drawSegments[i], 0.5, false);
+          }
+          drawSegments = [drawSegments[drawSegments.length - 1]];
+          segment = 0;
+          requestAnimationFrame(loop);
+      }());
+    };
+  </script>
+
+</body>
+</html>
+
+
+
+
+<!-- <!doctype html>
 <html>
 <head>
   <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
@@ -30,9 +140,9 @@
   </a-scene>
 
 </body>
-</html>
+</html> -->
 
-
+<!--////////////////////////////////////////////-->
 <!--    <a-scene embedded arjs='sourceType: webcam;'>
 
 
@@ -79,226 +189,3 @@
 
   </a-scene> -->
 
-
-
-
-
-
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
-
-
-<!-- <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>tracking.js - draw something</title>
-  <link rel="stylesheet" href="tracking/examples/assets/demo.css">
-
-  <script src="tracking/build/tracking.js"></script>
-  <script src="tracking/examples/assets/splines.min.js"></script>
-  <script src="tracking/examples/assets/stats.min.js"></script>
-
-  <style>
-    #canvas,
-    #video {
-      height: 300px;
-      position: absolute;
-      width: 400px;
-      padding-top: 66px;
-    }
-/*    .draw-frame {
-      background: url(tracking/examples/assets/draw_frame.png);
-      width: 400px;
-      height: 414px;
-      border: 1px solid #ccc;
-      top: 50%;
-      left: 50%;
-      position: absolute;
-      margin: -207px 0 0 -200px;
-    }
-    canvas, video {
-      -moz-transform: scale(-1, 1);
-      -o-transform: scale(-1, 1);
-      -webkit-transform: scale(-1, 1);
-      filter: FlipH;
-      transform: scale(-1, 1);
-    }*/
-  </style>
-</head>
-<body>
-
-  <div class="demo-title">
-    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － use magenta color to draw and cyan to erase</p>
-  </div>
-
-
-  <div class="demo-frame">
-    <div class="demo-container">
-      <div id="rectangle"></div>
-      <video id="video" width="400" height="300" preload autoplay muted controls>
-        <source src="ball.mp4" type="video/mp4">
-      </video>
-      <canvas id="canvas" width="400" height="300"></canvas>
-    </div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      tracking.ColorTracker.registerColor('white', function(r, g, b) {
-        if(r>240 && g>240 && b>240) {
-          return true;
-        }
-        return false;
-      });
-      var drawSegments = [[]];
-      var segment = 0;
-      var tracker = new tracking.ColorTracker(['white', 'cyan']);
-      tracking.track('#video', tracker, { camera: true });
-      tracker.on('track', function(event) {
-        if (event.data.length === 0 && drawSegments[segment].length > 0) {
-          segment++;
-          if (!drawSegments[segment]) {
-            drawSegments[segment] = [];
-          }
-        }
-        event.data.forEach(function(rect) {
-          if (rect.color === 'white') {
-            draw(rect);
-          }
-        });
-      });
-      function draw(rect) {
-        drawSegments[segment].push(rect.x + rect.width / 2, rect.y + rect.height / 2);
-      }
-      function erase(rect) {
-        context.clearRect(rect.x, rect.y, rect.width, rect.height);
-      }
-      function isInsideRect(x, y, rect) {
-        return rect.x <= x && x <= rect.x + rect.width &&
-            rect.y <= y && y <= rect.y + rect.height;
-      }
-      (function loop() {
-          for (var i = 0, len = drawSegments.length; i < len; i++) {
-              drawSpline(context, drawSegments[i], 0.5, true);
-          }
-          drawSegments = [drawSegments[drawSegments.length - 1]];
-          segment = 0;
-          requestAnimationFrame(loop);
-      }());
-    };
-  </script>
-
-</body>
-</html> -->
-
-
-<!-- 
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>tracking.js - first tracking</title>
-  <script src="tracking/build/tracking-min.js"></script>
-</head>
-<body>
-<video id="myVideo" width="400" height="300" preload autoplay loop muted></video>
-<script>
-tracking.ColorTracker.registerColor('white', function(r, g, b) {
-  if (r > 250 && g > 250 && b > 250) {
-    return true;
-  }
-  return false;
-});
-
-var colors = new tracking.ColorTracker(['white', 'magenta', 'cyan', 'yellow']);
-
-colors.on('track', function(event) {
-  if (event.data.length === 0) {
-    // No colors were detected in this frame.
-  } else {
-    event.data.forEach(function(rect) {
-      console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
-      alert(rect.color);
-    });
-  }
-});
-
-window.onload = function() {
-  // note here that 'camera' is set to true, I believe this tells tracking.js to use
-  // the webcam.
-  tracking.track('#myVideo', colors, {camera: true});  
-}
-
-</script>
-</body>
-</html> -->
-
-<!--
-
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>tracking.js - color with camera</title>
-  <link rel="stylesheet" href="assets/demo.css">
-
-  <script src="tracking/build/tracking-min.js"></script>
-  <script src="tracking/node_modules/dat.gui/build/dat.gui.min.js"></script>
-  <script src="tracking/assets/stats.min.js"></script>
-  <script src="tracking/assets/color_camera_gui.js"></script>
-
-  <style>
-  video, canvas {
-    margin-left: 100px;
-    margin-top: 35px;
-    position: absolute;
-  }
-  </style>
-</head>
-<body>
-  <div class="demo-title">
-    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － choose the colors you want to detect through the controls on the right</p>
-  </div>
-
-  <div class="demo-frame">
-    <div class="demo-container">
-      <video id="video" width="600" height="450" preload autoplay loop muted controls></video>
-      <canvas id="canvas" width="600" height="450"></canvas>
-    </div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var tracker = new tracking.ColorTracker();
-      tracking.track('#video', tracker, { camera: true });
-      tracker.on('track', function(event) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        event.data.forEach(function(rect) {
-          if (rect.color === 'custom') {
-            rect.color = tracker.customColor;
-          }
-          context.strokeStyle = rect.color;
-          context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-          context.font = '11px Helvetica';
-          context.fillStyle = "#fff";
-          context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
-          context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-        });
-      });
-     initGUIControllers(tracker);
-    };
-  </script>
-
-</body>
-</html>
-
-
--->
