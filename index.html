@@ -8,7 +8,7 @@
 
 <!--   <link rel="stylesheet" href="tracking/examples/assets/demo.css">
  -->
-  <script src="tracking/build/tracking.js"></script>
+  <script src="tracking/build/tracking-min.js"></script>
   <script src="tracking/examples/assets/splines.min.js"></script>
   <script src="tracking/examples/assets/stats.min.js"></script>
 
@@ -19,7 +19,7 @@
   video, canvas {
     position: absolute;
   }
-  
+
 /*    #canvas,
     #video {
       height: 300px;
@@ -92,9 +92,9 @@
       function draw(rect) {
         drawSegments[segment].push(rect.x + rect.width / 2, rect.y + rect.height / 2);
       }
-      function erase(rect) {
-        context.clearRect(rect.x, rect.y, rect.width, rect.height);
-      }
+      // function erase(rect) {
+      //   context.clearRect(rect.x, rect.y, rect.width, rect.height);
+      // }
       function isInsideRect(x, y, rect) {
         return rect.x <= x && x <= rect.x + rect.width &&
             rect.y <= y && y <= rect.y + rect.height;
