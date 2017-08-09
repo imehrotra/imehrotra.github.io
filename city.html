@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yo - A-Frame School</title>
+    <meta name="description" content="glTF Model - A-Frame School">
+    <script src="https://rawgit.com/aframevr/aframe/b395ea0/dist/aframe-master.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+
+    <a-asset-item id="test" src="test.dae"></a-asset-item>
+
+<!--         <a-asset-item id="goog" src="google_daydream/scene.gltf"></a-asset-item>
+ -->
+<!--     <a-asset-item id="daydream-obj" src="/google-daydream/daydream.obj"></a-asset-item>
+        <a-asset-item id="cityModel" src="https://cdn.aframe.io/test-models/models/virtualcity/VC.gltf"></a-asset-item> -->
+
+      </a-assets>
+      <a-sky id="sky" color="blue" ></a-sky>
+
+  <a-entity collada-model="#test" scale="0.5 0.5 0.5" position="0 0 -5" rotation="0 180 0" onclick="func();"></a-entity>
+
+<!-- <a-gltf-model src="#goog"></a-gltf-model>
+ --><!--   <a-entity obj-model="obj: #daydream-obj"></a-entity>
+ --><!--       <a-gltf-model src="#cityModel"></a-gltf-model>
+ -->    </a-scene>
+
+<script type="text/javascript">
+  
+  function func() {
+
+var sceneEl = document.querySelector('a-scene');
+
+
+    var sky = document.getElementById("sky");
+    sky.setAttribute("color","red");
+  }
+</script>
+
+<!-- https://aframe.io/docs/0.6.0/introduction/javascript-events-dom-apis.html
+ -->
+
+  </body>
+</html>
